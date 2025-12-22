@@ -6,3 +6,4 @@ garding crop selection and resource management. By leveraging envi-
 ronmental data, AgroTrace demonstrates the potential of data-driven
 approaches for precision agriculture. It represents a practical tool for
 enhancing agricultural planning and productivity.
+<img width="1907" height="988" alt="Screenshot 2025-12-22 004230" src="https://github.com/user-attachments/assets/9cbbd9b3-3e95-4015-8c7f-d106dddb53a9" />
