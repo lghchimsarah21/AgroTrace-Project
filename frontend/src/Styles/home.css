@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Reset CSS to ensure proper scrolling */
+html,
+body
+{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+body {
+    overflow-y: auto;
+    position: relative;
+    background-color: white;
+    color: #111827;
+}
+
+.app-container {
+    width: 100%;
+    position: relative;
+}
+
+.content-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.content-section {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Basic styling */
+* {
+    box-sizing: border-box;
+    transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1), border-color
+    0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.backface-hidden {
+    backface-visibility: hidden;
+}
+

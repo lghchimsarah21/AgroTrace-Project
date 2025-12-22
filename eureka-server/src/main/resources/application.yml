@@ -1,0 +1,99 @@
+# ============================================
+# EUREKA SERVER CONFIGURATION
+# ============================================
+# Ce fichier configure le serveur Eureka pour la découverte de services
+
+# ============================================
+# CONFIGURATION DU SERVEUR
+# ============================================
+server:
+  port: 8761  # Port par défaut d'Eureka Server
+
+# ============================================
+# CONFIGURATION SPRING
+# ============================================
+spring:
+  application:
+    name: eureka-server  # Nom de l'application
+
+# ============================================
+# CONFIGURATION EUREKA
+# ============================================
+eureka:
+
+  # Configuration de l'instance Eureka
+  instance:
+    hostname: eureka-server  # Nom d'hôte (important pour Docker)
+    prefer-ip-address: true  # Utiliser l'adresse IP au lieu du hostname
+
+  # Configuration du client Eureka
+  # Note: Même si c'est un serveur, il a aussi un client interne
+  client:
+    # Ne pas s'enregistrer auprès d'un autre Eureka (mode standalone)
+    register-with-eureka: false
+
+    # Ne pas récupérer le registre depuis un autre Eureka
+    fetch-registry: false
+
+    # URL de service (pour les autres services qui veulent s'enregistrer)
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+  # Configuration du serveur Eureka
+  server:
+    # Active la préservation automatique en cas de problèmes réseau
+    enable-self-preservation: true
+
+    # Intervalle d'éviction (nettoyage des services morts) en millisecondes
+    eviction-interval-timer-in-ms: 10000  # 10 secondes
+
+    # Seuil de renouvellement pour activer la préservation
+    renewal-percent-threshold: 0.85
+
+    # Temps d'attente initial avant d'accepter le trafic
+    wait-time-in-ms-when-sync-empty: 0
+
+# ============================================
+# CONFIGURATION DU LOGGING
+# ============================================
+logging:
+  level:
+    # Logs Eureka
+    com.netflix.eureka: INFO
+    com.netflix.discovery: INFO
+
+    # Logs Spring
+    org.springframework.cloud: INFO
+
+    # Logs de votre application
+    com.cropapp: DEBUG
+
+# ============================================
+# CONFIGURATION MANAGEMENT & ACTUATOR
+# ============================================
+management:
+  endpoints:
+    web:
+      exposure:
+        # Exposer les endpoints de monitoring
+        include: health,info,metrics,env
+
+  endpoint:
+    health:
+      # Afficher les détails de santé
+      show-details: always
+
+  # Informations sur l'application
+  info:
+    env:
+      enabled: true
+
+# ============================================
+# INFORMATIONS DE L'APPLICATION
+# ============================================
+info:
+  app:
+    name: Eureka Service Discovery
+    description: Service de découverte pour l'architecture microservices Crop Yield
+    version: 1.0.0
+    author: CropApp Team

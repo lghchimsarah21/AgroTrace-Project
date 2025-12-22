@@ -1,0 +1,151 @@
+version: '3.8'
+
+services:
+  eureka-server: 
+    build:
+     context: ./eureka-server
+    container_name: eureka-server
+    ports:
+     - "8761:8761"
+    networks:
+     - app-network
+    restart: on-failure
+    healthcheck:
+     test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
+     interval: 10s
+     timeout: 5s
+     retries: 10
+     start_period: 20s
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: cropyield
+    ports:
+      - "3307:3306"
+    networks:
+      - app-network
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    command: --default-authentication-plugin=mysql_native_password
+
+  apiprediction1:
+    build:
+      context: ./apiPrediction
+    container_name: apiprediction1
+    ports:
+      - "5000:5000"
+    networks:
+      - app-network
+    restart: on-failure
+
+  cropapp2-1:
+    build:
+      context: ./Cropapp2
+    container_name: cropapp2-1
+    ports:
+      - "9192:9192"
+    networks:
+      - app-network
+    depends_on:
+      mysql:
+        condition: service_healthy
+      apiprediction1:
+        condition: service_started
+      eureka-server:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/cropyield?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver
+      - FLASK_API_URL=http://apiprediction1:5000
+      - SERVER_PORT=9192
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+    restart: on-failure
+
+  cropapp2-2:
+    build:
+      context: ./Cropapp2
+    container_name: cropapp2-2
+    ports:
+      - "9193:9192"
+    networks:
+      - app-network
+    depends_on:
+      mysql:
+        condition: service_healthy
+      apiprediction1:
+        condition: service_started
+      eureka-server:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/cropyield?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver
+      - FLASK_API_URL=http://apiprediction1:5000
+      - SERVER_PORT=9192
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+    restart: on-failure
+
+  cropapp2-3:
+    build:
+      context: ./Cropapp2
+    container_name: cropapp2-3
+    ports:
+      - "9194:9192"
+    networks:
+      - app-network
+    depends_on:
+      mysql:
+        condition: service_healthy
+      apiprediction1:
+        condition: service_started
+      eureka-server:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/cropyield?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver
+      - FLASK_API_URL=http://apiprediction1:5000
+      - SERVER_PORT=9192
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+    restart: on-failure
+
+  front:
+    build:
+      context: ./frontend
+    container_name: frontend
+    ports:
+      - "5173:5173"
+    networks:
+      - app-network
+    depends_on:
+      - cropapp2-1
+      - cropapp2-2
+      - cropapp2-3
+    environment:
+      - VITE_API_URL=http://localhost:9192
+      - REACT_APP_API_URL=http://cropapp2-1:9192
+    stdin_open: true
+    tty: true
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql-data:

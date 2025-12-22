@@ -1,0 +1,304 @@
+/* animatioForm.css */
+
+/* Background fade-in with smooth easing */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: end;
+    z-index: 1000;
+    opacity: 0;
+    animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Modal content animation (Slide in from right with smooth easing) */
+.modal-content {
+    height: 100%;
+    background: white;
+    padding: 2rem;
+    border-left: 1px solid #ccc;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+    transform: translateX(100%);
+    opacity: 0;
+    animation: slideInFromRight 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards 0.1s; /* Slight delay for a staged effect */
+    width: 50%;
+    max-width: 90%;
+    overflow-y: auto;
+    will-change: transform, opacity; /* Optimize for performance */
+}
+
+
+.modal-overlayResult {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: 2s;
+    backdrop-filter: blur(2px);
+}
+
+/* Modal content animation (Slide in from right with smooth easing) */
+.modal-contentResult {
+    height: 100%;
+    background: white;
+    padding: 2rem;
+    border-left: 1px solid #ccc;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+    transform: translateX(100%);
+    opacity: 0;
+    animation: slideInFromRight 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards 0.1s; /* Slight delay for a staged effect */
+    width: 1000px;
+    max-width: 90%;
+    overflow-y: auto;
+    will-change: transform, opacity;
+    animation-delay: 2s/* Optimize for performance */
+}
+
+
+
+/* Animation to slide in from the right with smooth easing */
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Animation to slide out to the right with smooth easing */
+.slide-out {
+    animation: slideOutToRight 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideOutToRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* Fade-in animation for the overlay with smooth easing */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Close button hover effect with smoother transition */
+
+
+
+
+
+/* Close button styling */
+.close-btn {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0.25rem;
+    border-radius: 50%;
+    background-color: hsl(var(--muted));
+    color: hsl(var(--muted-foreground));
+    animation: closeAnimation 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transform: scale(0);
+    opacity: 0;
+    animation-delay: 0.9s;
+}
+
+.close-btn:hover {
+    background-color: hsl(var(--destructive));
+    color: hsl(var(--destructive-foreground));
+    transform: scale(1.1) !important;
+
+}
+
+/* Title styling */
+.title-form {
+    width: 100%;
+    text-align: right;
+    padding-right: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    color: hsl(var(--foreground));
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    animation: slideInButton 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: 0.8s;
+}
+
+
+
+@keyframes closeAnimation {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+
+.close-btn:active {
+    transform: scale(0.9) !important; /* Slight scale effect on click */
+}
+
+/* Optional: Add a subtle backdrop blur for modern feel */
+.modal-overlay {
+    backdrop-filter: blur(5px); /* Adds a blur effect to the background */
+}
+
+
+
+@keyframes slideInButton {
+    from {
+        opacity: 0;
+
+    }
+    to {
+        opacity: 1;
+
+    }
+}
+
+
+
+/* Fading out effect for the row */
+/* Slide row to the right before deletion */
+/* Initial state: No animation applied */
+.deleteFade {
+    animation: slowThenFastLeft 1s forwards;
+    will-change: opacity, transform;  /* Helps the browser optimize the transition */
+}
+
+/* Smooth animation */
+@keyframes slowThenFastLeft {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    50% {
+        opacity: 0.5;
+        background: #FF0000;/* Gradual fade */
+        transform: translateX(-50px); /* Move left */
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-150px); /* Full disappearance */
+    }
+}
+
+
+
+
+
+.button-form{
+    opacity: 0;
+
+    animation: slideInButton 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: 1s;
+}
+
+@keyframes slideInButton {
+    from {
+        opacity: 0;
+
+    }
+    to {
+        opacity: 1;
+
+    }
+}
+
+.form-input {
+    opacity: 0;
+    transform: translateY(100%);
+    animation: slideInInput 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animationDelay3 {
+    animation-delay: 0.2s;
+}
+
+.animationDelay4 {
+    animation-delay: 0.4s;
+}
+
+.animationDelay5 {
+    animation-delay: 0.6s;
+}
+
+.animationDelay6 {
+    animation-delay: 0.7s;
+}
+
+.animationDelay7 {
+    animation-delay: 0.8s;
+}
+
+.animationDelay8 {
+    animation-delay: 1s;
+}
+
+.animationDelay1 {
+    animation-delay: 0.3s;
+}
+
+.animationDelay2 {
+    animation-delay: 0.6s;
+}
+
+
+
+
+
+
+
+
+
+
+
+@keyframes slideInInput {
+    from {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

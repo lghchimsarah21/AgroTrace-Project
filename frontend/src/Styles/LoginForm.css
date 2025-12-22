@@ -1,0 +1,68 @@
+/* Container to split the screen */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevents scrolling */
+    height: 100%;
+}
+
+.page-container {
+    display: flex;
+    height: 100vh; /* Use full viewport height */
+    width: 100vw; /* Ensure it takes full width */
+    overflow: hidden; /* No scrolling */
+}
+  
+  /* Left side of the screen (contains the form) */
+  .form-container {
+    width: 50%; /* Half of the screen width */
+    display: flex;
+    justify-content: center;  /* Center horizontally */
+    align-items: center;      /* Center vertically */
+    padding: 20px;             /* Add padding around the form */
+    background-color: #fff;    /* Optional: form background color */
+  }
+  
+  /* Right side of the screen (black background container) */
+  .imageLogin {
+    width: 50%; /* Half of the screen width */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Styling for the form wrapper */
+  .login-form {
+    width: 100%;
+    max-width: 400px;          /* Set max width of the form */
+    padding: 20px;             /* Add some padding around the form */
+    background-color: #fff;    /* Form background color */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: add shadow to form */
+    border-radius: 8px;        /* Optional: rounded corners */
+  }
+  
+  .imageLogin {
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+    
+    display: flex; /* Ensures the image stretches properly */
+}
+
+.signup {
+  transform: translateX(-100%);
+}
+
+.login {
+  transform: translateX(-100%);
+}
+
+.imageLogin.fade-in {
+    
+    transform: translateX(0);
+}
+
+.imageLogin img {
+    width: 100%;  /* Fills the container width */
+    height: 100%; /* Fills the container height */
+    object-fit: cover; /* Ensures the image fully covers the space */
+}

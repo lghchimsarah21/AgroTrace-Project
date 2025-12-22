@@ -1,0 +1,14 @@
+html,
+body {
+    scroll-behavior: smooth;
+}
+
+.app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-container {
+    flex: 1;
+}
