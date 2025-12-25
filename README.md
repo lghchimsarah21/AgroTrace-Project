@@ -11,5 +11,6 @@ enhancing agricultural planning and productivity.
 
 https://github.com/user-attachments/assets/7353c85c-ed8a-4c37-b58a-e2bcbd74cfe6
 
-<img width="1893" height="983" alt="Screenshot 2025-12-25 223437" src="https://github.com/user-attachments/assets/92323d20-dffa-48a4-b489-530ff1da37a7" />
-<img width="1896" height="1019" alt="Screenshot 2025-12-25 213103" src="https://github.com/user-attachments/assets/e0439602-ee63-4632-a104-3344f8921925" />
+
+<img width="1893" height="983" alt="Screenshot 2025-12-25 223437" src="https://github.com/user-attachments/assets/c777ac8d-0c45-437a-aa4b-7b739493b5fc" />
+<img width="1888" height="991" alt="Screenshot 2025-12-25 223734" src="https://github.com/user-attachments/assets/f5c29d68-7cd6-4174-a7b9-5c0da8b372db" />
